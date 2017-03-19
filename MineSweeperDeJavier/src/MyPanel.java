@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.util.Random;
 
@@ -43,7 +44,12 @@ public class MyPanel extends JPanel {
 		}
 		for(int i=0; i<=9;i++){ //Declaring cells and assigning mines 
 			for(int j=0;j<=9;j++){
-					cells[i][j] = new Cell(false, i, j);
+				if(i==0||j==0){	
+					cells[i][j] = new Cell(false, i, j, Color.LIGHT_GRAY);
+				}
+				else{
+					cells[i][j] = new Cell(false, i, j, Color.WHITE);
+				}
 			}
 		}
 		for(int mine=1; mine<=9; mine++)
@@ -99,9 +105,15 @@ public class MyPanel extends JPanel {
 					g.setColor(c);
 					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
 					
+//					if(cells[x][y].mineCouter()!=0 && cells[x][y].getClicked()==true){
+//						System.out.println("lucas");
+//						g.setColor(Color.BLACK);
+//						g.drawString(), (x+1)*32, (y+1)*32);
+//					}
 				}
 			}
 		}
+		drawNumbers(g);
 	}
 	public int getGridX(int x, int y) {
 		Insets myInsets = getInsets();
@@ -153,4 +165,23 @@ public class MyPanel extends JPanel {
 		}
 		return y;
 	}
+	
+	public void drawNumbers(Graphics g){
+		Graphics2D g2 = (Graphics2D) g;
+		for (int x = 0; x < TOTAL_COLUMNS; x++) {
+			for (int y = 0; y < TOTAL_ROWS; y++) {
+				if(colorArray[x][y]== Color.GRAY){
+					if(cells[x][y].mineCouter()>0){
+						g2.setColor(Color.BLACK);
+						g2.drawString(cells[x][y].mineCouter()+"", x*INNER_CELL_SIZE+40, y*INNER_CELL_SIZE+50);
+					}
+				
+				}
+				
+			}
+			}
+	}
+	
+	
+	
 }

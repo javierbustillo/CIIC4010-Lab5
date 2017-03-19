@@ -113,11 +113,26 @@ public class MyMouseAdapter extends MouseAdapter {
 							else {// click on cell without a mine
 								newColor = Color.GRAY;
 								mineCount = MyPanel.cells[gridX][gridY].mineCouter();
-							System.out.println(mineCount);
+								/*System.out.println(mineCount);
+								MyPanel.cells[gridX][gridY].setClicked(true);*/
+								if(mineCount>0){
+									//Print number on cell
+								}
+								else{
+									MyPanel.cells[gridX][gridY].painter();
+									for(int i=0;i<9;i++){
+										for(int j=0;j<9;j++){
+											myPanel.colorArray[i][j] = MyPanel.cells[i][j].getCellColor();
+											
+										}
+									}
+									myPanel.repaint();
+								}
 							}
 							//System.out.println(MyPanel.cells[gridX][gridY].getMineValue());
 							
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
+							MyPanel.cells[gridX][gridY].setCellColor(newColor);
 							myPanel.repaint();
 						}
 					}
@@ -170,6 +185,7 @@ public class MyMouseAdapter extends MouseAdapter {
 									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 									myPanel.repaint();
 									flag++;
+									MyPanel.cells[gridX][gridY].setCellColor(newColor);
 									//System.out.println(MyPanel.cells[gridX][gridY].getFlagValue());
 								}else if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == Color.RED){
 									Color newColor = Color.WHITE;
@@ -178,6 +194,7 @@ public class MyMouseAdapter extends MouseAdapter {
 									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 									myPanel.repaint();
 									flag--;
+									MyPanel.cells[gridX][gridY].setCellColor(newColor);
 									//System.out.println(MyPanel.cells[gridX][gridY].getFlagValue());
 								}
 							}
@@ -188,6 +205,7 @@ public class MyMouseAdapter extends MouseAdapter {
 								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 								myPanel.repaint();
 								flag--;
+								MyPanel.cells[gridX][gridY].setCellColor(newColor);
 								//System.out.println(MyPanel.cells[gridX][gridY].getFlagValue());
 							}
 						}
