@@ -12,94 +12,98 @@ public class MyMouseAdapter extends MouseAdapter {
 	private int flag=0;
 	public int mineCount=0;
 	int initialMineFlag=0;
+	int loserFlag=0;
 	public void mousePressed(MouseEvent e) {
-		switch (e.getButton()) {
-		case 1:		//Left mouse button
-			Component c = e.getComponent();
-			while (!(c instanceof JFrame)) {
-				c = c.getParent();
-				if (c == null) {
-					return;
-				}
-			}
-			JFrame myFrame = (JFrame) c;
-			MyPanel myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
-			Insets myInsets = myFrame.getInsets();
-			int x1 = myInsets.left;
-			int y1 = myInsets.top;
-			e.translatePoint(-x1, -y1);
-			int x = e.getX();
-			int y = e.getY();
-			myPanel.x = x;
-			myPanel.y = y;
-			myPanel.mouseDownGridX = myPanel.getGridX(x, y);
-			myPanel.mouseDownGridY = myPanel.getGridY(x, y);
-			
-			
-			
-			if(MyPanel.cells[myPanel.mouseDownGridX][myPanel.mouseDownGridY].getMineValue()){
-				for(int x2=0;x2<10;x2++){
-					for(int y2=0;y2<10;y2++){
-						if(MyPanel.cells[x2][y2].getMineValue()){
-							myPanel.colorArray[x2][y2] = Color.BLACK;
-						}
-						else if(MyPanel.cells[x2][y2].getMineValue() == false && x2>=1 && y2>=1){
-							myPanel.colorArray[x2][y2] = Color.GRAY;
-						}
+		if(loserFlag!=0){
+			//doNothing
+		}
+		else{
+			switch (e.getButton()) {
+			case 1:		//Left mouse button
+				Component c = e.getComponent();
+				while (!(c instanceof JFrame)) {
+					c = c.getParent();
+					if (c == null) {
+						return;
 					}
 				}
-			}
-			
-			if(initialMineFlag==0){
-				for(int mine=1; mine<=9; mine++)
-				{ //Declaring 9 random cells as mines 
-					Random randomGenerator = new Random();
-					int RandXComp=randomGenerator.nextInt(8) + 1;
-					int RandYComp=randomGenerator.nextInt(8) + 1;
-					
-					if (MyPanel.cells[RandXComp][RandYComp].getMineValue()==false&&myPanel.mouseDownGridX!=RandXComp&&myPanel.mouseDownGridY!=RandYComp){ //if cell isnt already set as a mine
-						MyPanel.cells[RandXComp][RandYComp].setMineValue(true);
-					}
-					else{
-						mine--;
-					}
+				JFrame myFrame = (JFrame) c;
+				MyPanel myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
+				Insets myInsets = myFrame.getInsets();
+				int x1 = myInsets.left;
+				int y1 = myInsets.top;
+				e.translatePoint(-x1, -y1);
+				int x = e.getX();
+				int y = e.getY();
+				myPanel.x = x;
+				myPanel.y = y;
+				myPanel.mouseDownGridX = myPanel.getGridX(x, y);
+				myPanel.mouseDownGridY = myPanel.getGridY(x, y);
 				
+				
+				
+				if(MyPanel.cells[myPanel.mouseDownGridX][myPanel.mouseDownGridY].getMineValue()){
+					for(int x2=0;x2<10;x2++){
+						for(int y2=0;y2<10;y2++){
+							if(MyPanel.cells[x2][y2].getMineValue()){
+								myPanel.colorArray[x2][y2] = Color.BLACK;
+							}
+						}
+					}
+					loserFlag++;
 				}
-				initialMineFlag++;
-			}
-			
-			
-			
-			myPanel.repaint();
-			
-			break;
-		case 3:		//Right mouse button
-			c = e.getComponent();
-			while (!(c instanceof JFrame)) {
-				c = c.getParent();
-				if (c == null) {
-					return;
+				
+				if(initialMineFlag==0){
+					for(int mine=1; mine<=9; mine++)
+					{ //Declaring 9 random cells as mines 
+						Random randomGenerator = new Random();
+						int RandXComp=randomGenerator.nextInt(8) + 1;
+						int RandYComp=randomGenerator.nextInt(8) + 1;
+						
+						if (MyPanel.cells[RandXComp][RandYComp].getMineValue()==false&&myPanel.mouseDownGridX!=RandXComp&&myPanel.mouseDownGridY!=RandYComp){ //if cell isnt already set as a mine
+							MyPanel.cells[RandXComp][RandYComp].setMineValue(true);
+						}
+						else{
+							mine--;
+						}
+					
+					}
+					initialMineFlag++;
 				}
+				
+				
+				
+				myPanel.repaint();
+				
+				break;
+			case 3:		//Right mouse button
+				c = e.getComponent();
+				while (!(c instanceof JFrame)) {
+					c = c.getParent();
+					if (c == null) {
+						return;
+					}
+				}
+				myFrame = (JFrame) c;
+				myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
+				myInsets = myFrame.getInsets();
+				x1 = myInsets.left;
+				y1 = myInsets.top;
+				e.translatePoint(-x1, -y1);
+				x = e.getX();
+				y = e.getY();
+				myPanel.x = x;
+				myPanel.y = y;
+				myPanel.mouseDownGridX = myPanel.getGridX(x, y);
+				myPanel.mouseDownGridY = myPanel.getGridY(x, y);
+				
+				
+				myPanel.repaint();
+				break;
+			default:    //Some other button (2 = Middle mouse button, etc.)
+				//Do nothing
+				break;
 			}
-			myFrame = (JFrame) c;
-			myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
-			myInsets = myFrame.getInsets();
-			x1 = myInsets.left;
-			y1 = myInsets.top;
-			e.translatePoint(-x1, -y1);
-			x = e.getX();
-			y = e.getY();
-			myPanel.x = x;
-			myPanel.y = y;
-			myPanel.mouseDownGridX = myPanel.getGridX(x, y);
-			myPanel.mouseDownGridY = myPanel.getGridY(x, y);
-			
-			
-			myPanel.repaint();
-			break;
-		default:    //Some other button (2 = Middle mouse button, etc.)
-			//Do nothing
-			break;
 		}
 	}
 	public void mouseReleased(MouseEvent e) {
@@ -151,8 +155,6 @@ public class MyMouseAdapter extends MouseAdapter {
 							else {// click on cell without a mine
 								newColor = Color.GRAY;
 								mineCount = MyPanel.cells[gridX][gridY].mineCouter();
-								/*System.out.println(mineCount);
-								MyPanel.cells[gridX][gridY].setClicked(true);*/
 								if(mineCount>0){
 									//Print number on cell
 								}
@@ -167,11 +169,36 @@ public class MyMouseAdapter extends MouseAdapter {
 									myPanel.repaint();
 								}
 							}
+
 							//System.out.println(MyPanel.cells[gridX][gridY].getMineValue());
 							
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 							MyPanel.cells[gridX][gridY].setCellColor(newColor);
+							int openedCells=0;
 							myPanel.repaint();
+							for(int x2=0;x2<10;x2++){
+								for(int y2=0;y2<10;y2++){
+									if(MyPanel.cells[x2][y2].getMineValue() == false && MyPanel.cells[x2][y2].getCellColor() == Color.WHITE){
+										break;
+									}
+									else if(MyPanel.cells[x2][y2].getMineValue() == false && MyPanel.cells[x2][y2].getCellColor() == Color.GRAY && x2>=1 && y2>=1 ){
+										openedCells++;
+										if(openedCells==72){
+											for(int i=0;i<10;i++){
+												for(int j=0;j<10;j++){
+													if(MyPanel.cells[i][j].getMineValue() && MyPanel.cells[i][j].getCellColor()==Color.WHITE){
+														myPanel.colorArray[i][j]= Color.RED ;
+														myPanel.repaint();
+														break;
+													}
+												}
+											}
+											JOptionPane.showMessageDialog(null, "Winner");
+											
+										}
+									}
+								}
+							}
 						}
 					}
 				}

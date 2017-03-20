@@ -103,11 +103,6 @@ public class MyPanel extends JPanel {
 			}
 		}
 		drawNumbers(g);
-		if(gameOverVictory()){
-			System.out.printf("Game over \nwinner");
-			JOptionPane.showMessageDialog(null, "Winner");
-
-		}
 		
 	}
 	public int getGridX(int x, int y) {
@@ -177,17 +172,7 @@ public class MyPanel extends JPanel {
 		}
 	}
 	
-	public Boolean gameOverVictory(){
-		for(int x=0;x<10;x++){
-			for(int y=0;y<10;y++){
-				if(cells[x][y].getMineValue() == false && cells[x][y].getCellColor() == Color.WHITE){
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-	
+		
 	
 	
 	
