@@ -12,9 +12,10 @@ public class MyMouseAdapter extends MouseAdapter {
 	private int flag=0;
 	public int mineCount=0;
 	int initialMineFlag=0;
-	int loserFlag=0;
+	int gameEndedFlag=0;
+	int CELLS_WITHOUT_MINE=72;
 	public void mousePressed(MouseEvent e) {
-		if(loserFlag!=0){
+		if(gameEndedFlag!=0){
 			//doNothing
 		}
 		else{
@@ -50,12 +51,12 @@ public class MyMouseAdapter extends MouseAdapter {
 							}
 						}
 					}
-					loserFlag++;
+					gameEndedFlag++;
 				}
 				
 				if(initialMineFlag==0){
 					for(int mine=1; mine<=9; mine++)
-					{ //Declaring 9 random cells as mines 
+					{ //Declaring 9 random cells as mines after first click so the initial click will never be a mine
 						Random randomGenerator = new Random();
 						int RandXComp=randomGenerator.nextInt(8) + 1;
 						int RandYComp=randomGenerator.nextInt(8) + 1;
@@ -150,7 +151,6 @@ public class MyMouseAdapter extends MouseAdapter {
 								newColor = Color.BLACK;
 								mineCount=0;
 								JOptionPane.showMessageDialog(null, "Loser");
-
 							}
 							else {// click on cell without a mine
 								newColor = Color.GRAY;
@@ -183,7 +183,8 @@ public class MyMouseAdapter extends MouseAdapter {
 									}
 									else if(MyPanel.cells[x2][y2].getMineValue() == false && MyPanel.cells[x2][y2].getCellColor() == Color.GRAY && x2>=1 && y2>=1 ){
 										openedCells++;
-										if(openedCells==72){
+										if(openedCells==CELLS_WITHOUT_MINE){
+											gameEndedFlag++;
 											for(int i=0;i<10;i++){
 												for(int j=0;j<10;j++){
 													if(MyPanel.cells[i][j].getMineValue() && MyPanel.cells[i][j].getCellColor()==Color.WHITE){
@@ -194,7 +195,6 @@ public class MyMouseAdapter extends MouseAdapter {
 												}
 											}
 											JOptionPane.showMessageDialog(null, "Winner");
-											
 										}
 									}
 								}
@@ -284,4 +284,5 @@ public class MyMouseAdapter extends MouseAdapter {
 			break;
 		}
 	}
+
 }

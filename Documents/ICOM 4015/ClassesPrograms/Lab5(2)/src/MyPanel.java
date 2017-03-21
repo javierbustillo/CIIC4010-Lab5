@@ -162,17 +162,33 @@ public class MyPanel extends JPanel {
 			for (int y = 0; y < TOTAL_ROWS; y++) {
 				if(colorArray[x][y]== Color.GRAY){
 					if(cells[x][y].mineCouter()>0){
-						g2.setColor(Color.BLACK);
-						g2.drawString(cells[x][y].mineCouter()+"", x*INNER_CELL_SIZE+40, y*INNER_CELL_SIZE+50);
+						if(cells[x][y].mineCouter()==1){
+							g2.setColor(Color.BLUE);
+							g2.drawString(cells[x][y].mineCouter()+"", x*INNER_CELL_SIZE+40, y*INNER_CELL_SIZE+50);
+						}
+						if(cells[x][y].mineCouter()==2){
+							g2.setColor(Color.GREEN);
+							g2.drawString(cells[x][y].mineCouter()+"", x*INNER_CELL_SIZE+40, y*INNER_CELL_SIZE+50);
+						}
+						if(cells[x][y].mineCouter()==3){
+							g2.setColor(Color.RED);
+							g2.drawString(cells[x][y].mineCouter()+"", x*INNER_CELL_SIZE+40, y*INNER_CELL_SIZE+50);
+						}
+						if(cells[x][y].mineCouter()==4){
+							g2.setColor(Color.blue);
+							g2.drawString(cells[x][y].mineCouter()+"", x*INNER_CELL_SIZE+40, y*INNER_CELL_SIZE+50);
+						}
+						if(cells[x][y].mineCouter()==5){
+							g2.setColor(Color.blue);
+							g2.drawString(cells[x][y].mineCouter()+"", x*INNER_CELL_SIZE+40, y*INNER_CELL_SIZE+50);
+						}
 					}
 				
 				}
 				
 			}
-		}
+			}
 	}
-	
-		
 	
 	
 	
