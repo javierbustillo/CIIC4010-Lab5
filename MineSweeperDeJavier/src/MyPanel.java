@@ -4,8 +4,10 @@ import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+@SuppressWarnings("unused")
 public class MyPanel extends JPanel {
 	private static final long serialVersionUID = 3426940946811133635L;
 	private static final int GRID_X = 25;
@@ -52,19 +54,7 @@ public class MyPanel extends JPanel {
 				}
 			}
 		}
-		for(int mine=1; mine<=9; mine++)
-		{ //Declaring 9 random cells as mines 
-			Random randomGenerator = new Random();
-			int RandXComp=randomGenerator.nextInt(8) + 1;
-			int RandYComp=randomGenerator.nextInt(8) + 1;
-			
-			if (cells[RandXComp][RandYComp].getMineValue()==false){ //if cell isnt already set as a mine
-				cells[RandXComp][RandYComp].setMineValue(true);
-			}
-			else {
-				mine=mine-1;
-			}
-		}
+		
 		
 	}
 	public void paintComponent(Graphics g) {
@@ -114,6 +104,7 @@ public class MyPanel extends JPanel {
 			}
 		}
 		drawNumbers(g);
+		
 	}
 	public int getGridX(int x, int y) {
 		Insets myInsets = getInsets();
@@ -165,15 +156,32 @@ public class MyPanel extends JPanel {
 		}
 		return y;
 	}
-	
 	public void drawNumbers(Graphics g){
 		Graphics2D g2 = (Graphics2D) g;
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
 			for (int y = 0; y < TOTAL_ROWS; y++) {
 				if(colorArray[x][y]== Color.GRAY){
 					if(cells[x][y].mineCouter()>0){
-						g2.setColor(Color.BLACK);
-						g2.drawString(cells[x][y].mineCouter()+"", x*INNER_CELL_SIZE+40, y*INNER_CELL_SIZE+50);
+						if(cells[x][y].mineCouter()==1){
+							g2.setColor(Color.BLUE);
+							g2.drawString(cells[x][y].mineCouter()+"", x*INNER_CELL_SIZE+40, y*INNER_CELL_SIZE+50);
+						}
+						if(cells[x][y].mineCouter()==2){
+							g2.setColor(Color.GREEN);
+							g2.drawString(cells[x][y].mineCouter()+"", x*INNER_CELL_SIZE+40, y*INNER_CELL_SIZE+50);
+						}
+						if(cells[x][y].mineCouter()==3){
+							g2.setColor(Color.RED);
+							g2.drawString(cells[x][y].mineCouter()+"", x*INNER_CELL_SIZE+40, y*INNER_CELL_SIZE+50);
+						}
+						if(cells[x][y].mineCouter()==4){
+							g2.setColor(Color.blue);
+							g2.drawString(cells[x][y].mineCouter()+"", x*INNER_CELL_SIZE+40, y*INNER_CELL_SIZE+50);
+						}
+						if(cells[x][y].mineCouter()==5){
+							g2.setColor(Color.blue);
+							g2.drawString(cells[x][y].mineCouter()+"", x*INNER_CELL_SIZE+40, y*INNER_CELL_SIZE+50);
+						}
 					}
 				
 				}

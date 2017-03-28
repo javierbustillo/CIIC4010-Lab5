@@ -217,7 +217,6 @@ public class Cell {
 				else{
 					MyPanel.cells[gridX-1][gridY-1].setCellColor(newColor);
 					MyPanel.cells[gridX-1][gridY-1].painter();
-					System.out.println("k");
 				}
 				if(MyPanel.cells[gridX][gridY-1].mineCouter()>0){
 					//Print number
@@ -261,7 +260,6 @@ public class Cell {
 				else{
 					MyPanel.cells[gridX-1][gridY-1].setCellColor(newColor);
 					MyPanel.cells[gridX-1][gridY-1].painter();
-					System.out.println("k");
 				}
 				if(MyPanel.cells[gridX][gridY-1].mineCouter()>0){
 					//Print number
@@ -289,7 +287,6 @@ public class Cell {
 				else{
 					MyPanel.cells[gridX-1][gridY-1].setCellColor(newColor);
 					MyPanel.cells[gridX-1][gridY-1].painter();
-					System.out.println("k");
 				}
 				if(MyPanel.cells[gridX][gridY-1].mineCouter()>0){
 					//Print number
