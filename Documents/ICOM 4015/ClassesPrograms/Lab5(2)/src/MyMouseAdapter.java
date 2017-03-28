@@ -13,7 +13,8 @@ public class MyMouseAdapter extends MouseAdapter {
 	public int mineCount=0;
 	int initialMineFlag=0;
 	int gameEndedFlag=0;
-	int CELLS_WITHOUT_MINE=72;
+	int MINES=10;
+	int CELLS_WITHOUT_MINE=81-MINES;
 	public void mousePressed(MouseEvent e) {
 		if(gameEndedFlag!=0){
 			//doNothing
@@ -43,7 +44,7 @@ public class MyMouseAdapter extends MouseAdapter {
 				
 				
 				
-				if(MyPanel.cells[myPanel.mouseDownGridX][myPanel.mouseDownGridY].getMineValue()){
+				if(MyPanel.cells[myPanel.mouseDownGridX][myPanel.mouseDownGridY].getMineValue()&&MyPanel.cells[myPanel.mouseDownGridX][myPanel.mouseDownGridY].getFlagValue()==false){
 					for(int x2=0;x2<10;x2++){
 						for(int y2=0;y2<10;y2++){
 							if(MyPanel.cells[x2][y2].getMineValue()){
@@ -55,7 +56,7 @@ public class MyMouseAdapter extends MouseAdapter {
 				}
 				
 				if(initialMineFlag==0){
-					for(int mine=1; mine<=9; mine++)
+					for(int mine=1; mine<=MINES; mine++)
 					{ //Declaring 9 random cells as mines after first click so the initial click will never be a mine
 						Random randomGenerator = new Random();
 						int RandXComp=randomGenerator.nextInt(8) + 1;
@@ -242,7 +243,7 @@ public class MyMouseAdapter extends MouseAdapter {
 							//On the left column and on the top row... do nothing
 						} else {
 							//On the grid other than on the left column and on the top row:
-							if(flag<10){ //verifying there aren't more flags than mines
+							if(flag<MINES){ //verifying there aren't more flags than mines
 								if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == Color.WHITE){
 									Color newColor = Color.RED;
 									Boolean flagValue = MyPanel.cells[gridX][gridY].getFlagValue();
